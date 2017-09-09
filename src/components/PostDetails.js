@@ -1,14 +1,8 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import * as ReadableAPI from '../utils/ReadableAPI'
 
 class PostDetails extends Component {
-
-  state = {
-    'selectedPath': 'redux/abc', // ''
-    'selectedPost': '8xf0y6ziyjabvozdd253nd', // ''
-    'posts': [],
-    'comments': []
-  }
 
   componentDidMount() {
     ReadableAPI.getComments(this.state.selectedPost)
@@ -21,51 +15,35 @@ class PostDetails extends Component {
   render() {
 
     return (
-      <div className="xxx">
+      <div className='postDetails'>
         <h2>PostDetails</h2>
-          <ul>
-            <li>Title: <strong>xxx</strong></li>
-            <li>Author: xxx</li>
-            {/* <li>Id: {myPost.id}</li> */}
-            {/* <li>Time stamp: xxx</li> */}
-            <li>Body: xxx</li>
-            {/* <li>Category: xxx</li> */}
-            <li>Current score: xxx</li>
-            <li>Number of comments: xxx</li>
-            {/* <li>Deleted: xxx</li> */}
-          </ul>
-            <ul><strong>
-              <li>Edit post BUTTON</li>
-              <li>Delete post BUTTON</li>
-              <li>Upvote post BUTTON</li>
-              <li>Downvote post BUTTON</li>
-              <li>Create comment BUTTON</li>
-            </strong></ul>
-
-        <h3>Comments</h3>
-          <li>Number of comments: xxx</li>
-          {this.state.comments.map((myComment) => (
-            <ul key={myComment.id}>
-              <li><strong>Author: {myComment.author}</strong></li>
-              {/* <li>Id: {myComment.id}</li> */}
-              <li>Time stamp{myComment.timestamp}</li>
-              <li>Body: {myComment.body}</li>
-              <li>Current Score: {myComment.voteScore}</li>
-              {/* <li>Parent Id: {JSON.stringify(myComment.parentId)}</li> */}
-              {/* <li>Deleted: {JSON.stringify(myComment.deleted)}</li> */}
-              {/* <li>Parent deleted: {JSON.stringify(myComment.parentDeleted)}</li> */}
-              <strong>
-                <li>Delete comment BUTTON</li>
-                <li>Edit comment BUTTON</li>
-                <li>Upvote comment BUTTON</li>
-                <li>Downvote comment BUTTON</li>
-              </strong>
-            </ul>
-          ))}
+        <ul>
+          <li className='title'>xxx (title) xxx</li>
+          <li className='author'>xxx (author) xxx</li>
+          {/* <li>Id: {myPost.id}</li> */}
+          <li className='timeStamp'>xxx time stamp xxx</li>
+          {/* <li>Category: xxx</li> */}
+          <li className='score'>xxx score xxx</li>
+          <li className='count'>xxx comments xxx</li>
+          {/* <li>Deleted: xxx</li> */}
+        </ul>
+          <p className='content'>xxx (body) xxx</p>
+          <ul><strong>
+            <li>EDIT post</li>
+            <li>DELETE post</li>
+            <li>UP post</li>
+            <li>DOWN post</li>
+            <li>ADD comment</li>
+          </strong></ul>
       </div>
     )
   }
 }
 
+const mapStateToProps = (state, props) => ({
+  'selectedPost': state.ui.selectedPost
+});
 
-export default PostDetails
+export default connect(
+  mapStateToProps
+)(PostDetails)

@@ -1,41 +1,23 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 import * as ReadableAPI from '../utils/ReadableAPI'
+import Score from '../components/Score'
+import Count from '../components/Count'
 
 class Posts extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {
-      'selectedPath': 'redux',
-      'selectedPost': '6ni6ok3ym7mf1p33lnez',
-      'posts': []
-    }
-    // this.upvotePost = this.upvotePost.bind(this)
-    // this.downvotePost = this.downvotePost.bind(this)
   }
 
-  componentDidMount() {
-    ReadableAPI.getAllPosts()
-      .then((myArray) => this.setState({'posts': myArray}))
-    }
-
-  // upvotePost() {
-  //   ReadableAPI.votePost(`${myPost.id}`,'upVote')
-  // }
-  //
-  // downvotePost(){
-  //   ReadableAPI.votePost(`${myPost.id}`,'downVote')
-  // }
-
   render() {
-
     return (
-      <div className="xxx">
+      <div className="posts">
         <h2>List of posts</h2>
           <ul>
             <strong>
-              <Link to={`/${this.state.selectedPath}`}>Unselect all posts</Link>
+              <Link to={`/${this.state.selectedCat}`}>Unselect all posts</Link>
               <br />
               <Link to='/newPost'>New Post</Link>
               <li>Filter per date BUTTON</li>
@@ -46,27 +28,19 @@ class Posts extends Component {
           {this.state.posts.map((myPost) => (
 
             <ul key={myPost.id}>
-              <li>Title: <strong>{myPost.title}</strong></li>
-              <li>Author: {myPost.author}</li>
+              <li className='title'>{myPost.title}</li>
+              <li className='author'>Author: {myPost.author}</li>
               {/* <li>{myPost.id}</li> */}
               {/* <li>Time stamp: {myPost.timestamp}</li> */}
               {/* <li>{myPost.body}</li> */}
               {/* <li>Category: {myPost.category}</li> */}
-              <li>Current score: {myPost.voteScore}</li>
-              <li>Number of comments: xxx</li>
+              <Score OfWhat='post' id={myPost.id}/>   {/* score of this post */}
+              <Count ofWhat='comment' id={myPost.id}/>  {/* number of comments attached to this post  */}
               {/* <li>Deleted: {JSON.stringify(myPost.deleted)}</li> */}
-
-              {/* <button name='upPost' onClick={this.upvotePost}>
-                Upvote post
-              </button>
-
-              <button name='downPost' onClick={this.downvotePost}>
-                Downvote Post
-              </button> */}
 
               <Link to={`/${myPost.category}/${myPost.id}`}>More...</Link>
               <br />
-              <Link to={`/${this.state.selectedPath}`}>Unselect this post</Link>
+              <Link to={`/${this.state.selectedCat}`}>Unselect this post</Link>
               {/* should only show this link for the selected post */}
 
             </ul>
@@ -76,4 +50,13 @@ class Posts extends Component {
   }
 }
 
-export default Posts
+const mapStateToProps = (state, props) => ({
+  'SelectedCat': state.ui.SelectedCat,     // required to filter per category which posts are shown
+  'Posts': state.Posts,                   // these are the posts that will be listed on screen
+  'CatIndex': state.Index.CatIndex,              // to show easily the PostsList for each (or several) category
+  'SelectedPost': state.ui.SelectedPost      // required to underline in PostsLists which Post is currently shown in PostsDetails
+});
+
+export default connect(
+  mapStateToProps
+)(Posts)

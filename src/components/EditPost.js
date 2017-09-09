@@ -6,28 +6,6 @@ class EditPost extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      categories: [
-          {
-            name: 'react',
-            path: 'react'
-          },
-          {
-            name: 'redux',
-            path: 'redux'
-          },
-          {
-            name: 'udacity',
-            path: 'udacity'
-          }
-      ],
-      selectedPath: 'redux',
-      selectedPost: '6ni6ok3ym7mf1p33lnez',
-      postTitle: '',
-      postBody: '',
-      postAuthor: '',
-      postPath: 'udacity'
-    };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -77,7 +55,7 @@ class EditPost extends Component {
           <li>Category: {this.state.postPath}</li>
         <br />
 
-          <Link to={`/${this.state.selectedPath}/${this.state.selectedPost}`}>Cancel</Link>
+          <Link to={`/${this.state.selectedCat}/${this.state.selectedPost}`}>Cancel</Link>
       </div>
     )
   }
