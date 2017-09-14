@@ -187,8 +187,8 @@ function indexReducer(state = emptyState.Index, action){
 
 export default combineReducers({
   uiReducer,
+  categoryReducer,
   postsReducer,
   commentsReducer,
-  categoryReducer,
   indexReducer
 })
