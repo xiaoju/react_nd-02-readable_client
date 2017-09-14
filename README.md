@@ -85,6 +85,9 @@ It was bootstrapped with [Create React App](https://github.com/facebookincubator
 - suboptimal API endpoint naming choices ('category' name follows directly the root '/' ),
 - API outputs not [normalized](http://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html).
 
+# multi-categories support
+As Backend only support one category per post, we save the array of categories produced by frontend, as a single string on backend. 
+
 # available categories
 
 Create, edit and delete categories directly within the code of the backend, file `categories.js`.
@@ -102,86 +105,93 @@ Use an Authorization header to work with your own data:
 
 The following endpoints are available:  
 
-`GET /categories`  
-  **USAGE:**   
-    Get all of the categories available for the app. List is found in categories.js.
-    Feel free to extend this list as you desire.    
+    GET /categories
+    Get all of the categories available for the app. List is found in categories.js. Feel free to extend this list as you desire.    
 
-`GET /:category/posts`  
-  **USAGE:**    
+    GET /:category/posts
     Get all of the posts for a particular category   
 
-`GET /posts`  
-  **USAGE:**    
+    GET /posts
     Get all of the posts. Useful for the main page when no category is selected.  
 
-`POST /posts`  
-  **USAGE:**  
-    Add a new post  
+    `POST /posts`  
+      **USAGE:**  
+        Add a new post  
 
-  **PARAMS:**   
-    id - UUID should be fine, but any unique id will work  
-    timestamp - timestamp in whatever format you like, you can use Date.now() if you like  
-    title - String  
-    body - String  
-    owner - String  
-    category: Any of the categories listed in categories.js. Feel free to extend this list as you desire.  
+      **PARAMS:**   
+        id - UUID should be fine, but any unique id will work  
+        timestamp - timestamp in whatever format you like, you can use Date.now() if you like  
+        title - String  
+        body - String  
+        owner - String  
+        category: Any of the categories listed in categories.js. Feel free to extend this list as you desire.  
 
-`GET /posts/:id`  
-  **USAGE:**  
-    Get the details of a single post  
+      `GET /posts/:id`  
+        **USAGE:**  
+          Get the details of a single post
 
-`POST /posts/:id`  
-  **USAGE:**  
-    Used for voting on a post  
+      `POST /posts/:id`  
+        **USAGE:**  
+          Used for voting on a post  
 
-  **PARAMS:**  
-    option - String: Either "upVote" or "downVote"  
+      **PARAMS:**  
+        option - String: Either "upVote" or "downVote"  
 
-`PUT /posts/:id`  
-  **USAGE:**  
-    Edit the details of an existing post  
+    `PUT /posts/:id`  
+      **USAGE:**  
+        Edit the details of an existing post  
 
-  **PARAMS:**  
-    title - String  
-    body - String  
+      **PARAMS:**  
+        title - String  
+        body - String  
 
-`DELETE /posts/:id`  
-  **USAGE:**  
-    Sets the deleted flag for a post to 'true'.   
-    Sets the parentDeleted flag for all child comments to 'true'.  
+    `DELETE /posts/:id`  
+      **USAGE:**  
+        Sets the deleted flag for a post to 'true'.   
+        Sets the parentDeleted flag for all child comments to 'true'.  
 
-`GET /posts/:id/comments`  
-  **USAGE:**  
-    Get all the comments for a single post  
+    `GET /posts/:id/comments`  
+      **USAGE:**  
+        Get all the comments for a single post  
 
-`POST /comments`  
-  **USAGE:**  
-    Add a comment to a post  
+    `POST /comments`  
+      **USAGE:**  
+        Add a comment to a post  
 
-  **PARAMS:**  
-    id: Any unique ID. As with posts, UUID is probably the best here.  
-    timestamp: timestamp. Get this however you want.  
-    body: String  
-    owner: String  
-    parentId: Should match a post id in the database.  
+      **PARAMS:**  
+        id: Any unique ID. As with posts, UUID is probably the best here.  
+        timestamp: timestamp. Get this however you want.  
+        body: String  
+        owner: String  
+        parentId: Should match a post id in the database.  
 
-`GET /comments/:id`  
-  **USAGE:**  
-    Get the details for a single comment  
+    `GET /comments/:id`  
+      **USAGE:**  
+        Get the details for a single comment  
 
-`POST /comments/:id`  
-  **USAGE:**  
-    Used for voting on a comment.  
+    `POST /comments/:id`  
+      **USAGE:**  
+        Used for voting on a comment.  
 
-`PUT /comments/:id`  
-  **USAGE:**  
-    Edit the details of an existing comment  
+    `PUT /comments/:id`  
+      **USAGE:**  
+        Edit the details of an existing comment  
 
-  **PARAMS:**  
-    timestamp: timestamp. Get this however you want.  
-    body: String  
+      **PARAMS:**  
+        timestamp: timestamp. Get this however you want.  
+        body: String  
 
-`DELETE /comments/:id`  
-  **USAGE:**  
-    Sets a comment's deleted flag to 'true'
+    `DELETE /comments/:id`  
+      **USAGE:**  
+        Sets a comment's deleted flag to 'true'
+
+
+# Contributing
+  - As per release 0.1.0, this project passed Udacity review, and I'm not working on it anymore. However, feel free to contact me per email to `me@xiaoju.io` regarding any comments or suggestions.
+  - If you would like to work deeper on this app, I suggest you take the excellent [`React Udacity NanoDegree`](https://www.udacity.com/course/react-nanodegree--nd019) and create your own version of the project.
+  - [Semantic versioning guidelines](http://semver.org/).
+  - [Udacity style guides](https://udacity.github.io/git-styleguide/).
+
+# License
+  - See [Udacity legal terms](https://www.udacity.com/legal), _License to Educational Content_ section.
+  - Color theme is copied from [One Dark UI](https://github.com/atom/one-dark-ui) and [One Dark syntax](https://github.com/atom/one-dark-syntax). As these are the standard themes used by [Atom Nuclide](https://nuclide.io/), the colors can also be checked directly within Atom Nuclide, by opening a Chrome Dev Tools panel.
